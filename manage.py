@@ -61,8 +61,6 @@ def deploy():
     # create user roles
     Role.insert_roles()
 
-    # create self-follows for all users
-    User.add_self_follows()
 
 
 # 3) Запуск приложения 4 в app.init
