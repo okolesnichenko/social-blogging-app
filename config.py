@@ -22,6 +22,7 @@ class Config:
     FLASKY_POSTS_PER_PAGE = 15
     FLASKY_FOLLOWERS_PER_PAGE = 10
     FLASKY_COMMENTS_PER_PAGE = 10
+    SSL_DISABLE = True
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
@@ -77,7 +78,7 @@ class HerokuConfig(ProductionConfig):
         ProductionConfig.init_app(app)
 
         # handle proxy server headers
-        from werkzeug.contrib.fixers import ProxyFix
+        from werkzgeug.contrib.fixers import ProxyFix
         app.wsgi_app = ProxyFix(app.wsgi_app)
 
         # log to stderr

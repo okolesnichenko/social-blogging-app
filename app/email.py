@@ -2,7 +2,6 @@ from flask_mail import Message
 from threading import Thread
 from flask import render_template
 from flask import current_app
-from manage import app
 from app import mail
 '''
 Это расширение обеспечивает возможность соединения с SMTP-
