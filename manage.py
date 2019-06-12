@@ -55,7 +55,6 @@ def deploy():
     from app.models import Role, User
 
     # migrate database to latest revision
-    init()
     migrate()
     upgrade()
 
