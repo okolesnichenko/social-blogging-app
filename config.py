@@ -26,7 +26,7 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'appleid292@gmail.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') 
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     @staticmethod
     def init_app(app):
         pass
@@ -69,9 +69,29 @@ class ProductionConfig(Config):
         app.logger.addHandler(mail_handler)
 
 
+class HerokuConfig(ProductionConfig):
+    SSL_DISABLE = bool(os.environ.get('SSL_DISABLE'))
+
+    @classmethod
+    def init_app(cls, app):
+        ProductionConfig.init_app(app)
+
+        # handle proxy server headers
+        from werkzeug.contrib.fixers import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+
+        # log to stderr
+        import logging
+        from logging import StreamHandler
+        file_handler = StreamHandler()
+        file_handler.setLevel(logging.WARNING)
+        app.logger.addHandler(file_handler)
+
+
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
-    'production':ProductionConfig,
+    'production': ProductionConfig,
+    'heroku': HerokuConfig,
     'default': DevelopmentConfig
 }
