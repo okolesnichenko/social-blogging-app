@@ -26,12 +26,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['follower_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('follower_id', 'followed_id')
     )
-    op.create_table('roles',
-                    sa.Column('id', sa.Integer(), nullable=False),
-                    sa.Column('name', sa.String(length=64), nullable=True),
-                    sa.PrimaryKeyConstraint('id'),
-                    sa.UniqueConstraint('name')
-                    )
+
     # ### end Alembic commands ###
 
 
