@@ -1,4 +1,5 @@
 import os
+import werkzeug
 '''
 Приложения часто нуждаются во множестве параметров настройки.
 Отличным примером этого могут служить разные настройки базы
@@ -77,9 +78,9 @@ class HerokuConfig(ProductionConfig):
     def init_app(cls, app):
         ProductionConfig.init_app(app)
 
-        # handle proxy server headers
-        from werkzgeug.contrib.fixers import ProxyFix
+        from werkzeug.contrib.fixers import ProxyFix
         app.wsgi_app = ProxyFix(app.wsgi_app)
+
 
         # log to stderr
         import logging
