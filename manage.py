@@ -47,10 +47,16 @@ def test():
 @manager.command
 def deploy():
     """Run deployment tasks."""
+
+    from flask_migrate import init
+    from flask_migrate import migrate
     from flask_migrate import upgrade
+
     from app.models import Role, User
 
     # migrate database to latest revision
+    init()
+    migrate()
     upgrade()
 
     # create user roles
